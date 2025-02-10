@@ -4,625 +4,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerHub</title>
+    <title>CareerHub - Professional Development Platform</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.jpg') }}" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet">
-
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Navbar hover effect */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #4f46e5;
+            --accent-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            padding-top: 80px;
+            background-color: #f8fafc;
+        }
+
+        /* Enhanced Navbar */
+        .navbar {
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+
         .nav-link {
-            color: #333 !important;
-            font-weight: 600;
+            color: #1e293b !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
 
         .nav-link:hover {
-            color: black !important;
-            transition: 0.3s ease-in-out;
+            color: var(--primary-color) !important;
+            background: #eef2ff;
         }
 
-        /* Dropdown hover effect only for larger screens */
-        @media (min-width: 992px) {
-            .dropdown:hover .dropdown-menu {
-                display: block;
-                margin-top: 0;
-            }
-        }
-
-        /* Smooth dropdown transitions */
         .dropdown-menu {
-            transition: all 0.3s ease-in-out;
+            border: none;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+            margin-top: 8px !important;
         }
 
-        /* Search input */
-        .form-control {
-            width: 250px;
-            border-radius: 20px;
-        }
-
-        /* Buttons rounded for smooth UI */
-        .btn {
-            font-weight: 600;
-            border-radius: 20px;
-        }
-
-        /* Navbar shadow effect */
-        .navbar {
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Custom Toggler Icon */
         .navbar-toggler {
             border: none;
-            outline: none;
+            padding: 0.5rem;
         }
 
-        /* Default icon */
-        .navbar-toggler-icon {
-            width: 30px;
-            height: 30px;
-            background: url("https://cdn-icons-png.flaticon.com/512/2976/2976215.png") no-repeat center;
-            background-size: contain;
+        /* Modern Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(37,99,235,0.96), rgba(79,70,229,0.95)),
+                        url('hero-background.jpg') center/cover;
+            padding: 160px 0 80px;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Change icon when navbar is open */
-        .navbar-toggler.open .navbar-toggler-icon {
-            background: url("https://cdn-icons-png.flaticon.com/512/1828/1828778.png") no-repeat center;
-            /* Close icon */
-            background-size: contain;
-        }
-
-        /* Hide search box on mobile */
-        @media (max-width: 767px) {
-            .search-container {
-                display: none;
-            }
-        }
-
-        /* Fixed navbar at the top */
-        .navbar.fixed-top {
-            position: fixed;
+        .hero-section::after {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 1000;
             width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
         }
 
-        /* Body padding to prevent content hiding under navbar */
-        body {
-            padding-top: 80px;
-            /* Adjust for navbar height */
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        /* Blur effect when menu is open */
-        .navbar.blur-background {
-            backdrop-filter: blur(5px);
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border: none;
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
         }
 
-        @media (max-width: 767px) {
-            .navbar-collapse .search-container input {
-                display: none !important;
-                /* Hide only the search box */
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -40px auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        /* Company Carousel */
+        .company-carousel {
+            background: #f1f5f9;
+            padding: 40px 0;
+        }
+
+        .company-logo {
+            height: 40px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .company-logo:hover {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
+        /* Testimonials */
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 120px 0 60px;
             }
-        }
-
-        @media (max-width: 767px) {
-            .navbar-collapse .search-container {
-                display: none;
-                /* Keep search box hidden on mobile */
+            
+            .nav-link {
+                margin: 4px 0;
             }
-
+            
             .navbar-collapse .btn {
-                display: block;
-                width: auto;
-                /* Remove full-width */
-                text-align: left;
-                /* Align text to the left */
-                padding: 0;
-                /* Remove extra padding */
-                margin-top: 10px;
-                /* Add margin for spacing */
-                background: none;
-                /* Remove background */
-                border: none;
-                /* Remove border */
-                color: #007bff;
-                /* Match color with other nav links */
-                font-size: 1rem;
-                font-weight: 600;
-            }
-
-
-            /* Adjust text color and appearance for both login and logout */
-            .navbar-collapse .btn-primary,
-            .navbar-collapse .btn-outline-primary {
-                text-align: left;
-                /* Align text left like other nav items */
+                width: 100%;
+                margin-top: 1rem;
             }
         }
-
-        .highlight {
-    background-color: yellow;
-    color: black;
-    font-weight: bold;
-}
-
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top" id="navbar">
-        <div class="container-fluid">
-            <!-- Brand -->
-            <a class="navbar-brand fw-bold text-primary fs-4" href="#">CareerHub</a>
-
-            <!-- Toggler -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="menuToggle">
-                <span class="navbar-toggler-icon" id="toggleIcon"></span>
-            </button>
-
-
-            <!-- Navbar Items -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-
-                    <!-- Career Roadmaps Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Career Roadmaps
-                        </a>
-                        <ul class="dropdown-menu border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="#">Software Engineering</a></li>
-                            <li><a class="dropdown-item" href="#">Data Science</a></li>
-                            <li><a class="dropdown-item" href="#">UI/UX Design</a></li>
-                            <li><a class="dropdown-item" href="#">Product Management</a></li>
-                            <li><a class="dropdown-item" href="#">More...</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Resume Builder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mentorship</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Community</a>
-                    </li>
-
-                    <!-- Resources Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Resources
-                        </a>
-                        <ul class="dropdown-menu border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="{{ url_for('get_all_questions') }}">DSA Questions</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Data Science</a></li>
-                            <li><a class="dropdown-item" href="#">UI/UX Design</a></li>
-                            <li><a class="dropdown-item" href="#">Product Management</a></li>
-                            <li><a class="dropdown-item" href="#">More...</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
-                    </li>
-                </ul>
-
-                <!-- Search & Login -->
-                <form class="d-flex search-container" id="searchForm">
-                    <input class="form-control me-2 border" type="search" id="searchInput" placeholder="Search" aria-label="Search">
-                    {% if is_logged_in %}
-                    <a href="{{ url_for('logout') }}" class="btn btn-outline-primary">Logout</a>
-                    {% else %}
-                    <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
-                    {% endif %}
-                </form>
-                
-            </div>
-        </div>
-    </nav>
-
-
-
-
-
-
-
-    <div class="hero-section d-flex text-center text-black"
-        style="position: relative; background: url('hero-background.jpg') no-repeat center center; background-size: cover; padding-top: 200px; padding-bottom: 30px;">
-        <div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; ">
-        </div>
-
-        <div class="container" style="position: relative; z-index: 1;">
-            <h1 class="display-4 fw-bold mb-3">Build Your <span class="text-warning">Future</span> with CareerHub</h1>
-            <p class="lead mb-4 fs-6 fw-normal text-muted">Explore career roadmaps, connect with mentors, and access all
-                the tools you need to succeed.</p>
-            <a href="#signup" class="btn btn-primary btn-sm rounded-pill shadow-sm">Get Started</a>
-            <a href="#signup" class="btn btn-outline-success btn-sm rounded-pill shadow-sm">Explore Blog</a>
-
-        </div>
-
-    </div>
-    <!-- Disable content if not logged in -->
-    <div class="container mx-auto" style="max-width: 1400px; margin-top: 40px;">
-        <div
-            class="row w-100 d-flex justify-content-center text-black gap-4 {% if not is_logged_in %} disabled-content {% endif %}">
-
-            <!-- Data Engineering -->
-            <div class="card col-md-3 col-12  text-black text-center d-flex align-items-center justify-content-center p-3"
-                style="width: 18rem; height: 100%; ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" fill="currentColor"
-                    class="bi bi-database mb-3" viewBox="0 0 16 16">
-                    <path
-                        d="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313M13 5.698V7c0 .374-.356.875-1.318 1.313C10.766 8.729 9.464 9 8 9s-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777A5 5 0 0 0 13 5.698M14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13zm-1 4.698V10c0 .374-.356.875-1.318 1.313C10.766 11.729 9.464 12 8 12s-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10s3.022-.289 4.096-.777A5 5 0 0 0 13 8.698m0 3V13c0 .374-.356.875-1.318 1.313C10.766 14.729 9.464 15 8 15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13s3.022-.289 4.096-.777c.324-.147.633-.323.904-.525" />
-                </svg>
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Data Engineering</h5>
-                    <p class="card-text">Build, optimize, and maintain scalable data pipelines for seamless data flow,
-                        integration, and analytics.</p>
-                </div>
-            </div>
-
-            <!-- Data Science -->
-            <div class="card col-md-3  text-black text-center d-flex align-items-center justify-content-center p-3"
-                style="width: 18rem; height: 100%; ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor"
-                    class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1z" />
-                </svg>
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Data Science</h5>
-                    <p class="card-text">Extract insights from data using machine learning, AI, and statistical models
-                        for smarter decision-making.</p>
-                </div>
-            </div>
-
-            <!-- Software Engineering -->
-            <div class="card col-md-3 col-12  text-black text-center d-flex align-items-center justify-content-center p-3"
-                style="width: 18rem; height: 100%; ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="125" fill="currentColor"
-                    class="bi bi-code-slash" viewBox="0 0 16 16">
-                    <path
-                        d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0" />
-                </svg>
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Software Engineering</h5>
-                    <p class="card-text">Design, develop, and deploy high-performance applications with best coding
-                        practices and scalable architecture.</p>
-                </div>
-            </div>
-
-            <!-- Engineering Management -->
-            <div class="card col-md-3 col-12 text-black text-center d-flex align-items-center justify-content-center p-3"
-                style="width: 18rem; height: 100%; ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
-                    class="bi bi-people" viewBox="0 0 16 16">
-                    <path
-                        d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
-                </svg>
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Engineering Management</h5>
-                    <p class="card-text">Lead technical teams, manage projects, and drive innovation with effective
-                        engineering strategies.</p>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <style>
-        /* For PC: Center all cards in one row */
-        @media (min-width: 768px) {
-            .row {
-                display: flex;
-                justify-content: center;
-                /* Center all cards */
-                flex-wrap: nowrap;
-            }
-
-            .card {
-                flex: 0 0 auto;
-                /* Ensure cards don't stretch */
-            }
-        }
-
-        /* For mobile: Keep horizontal scrolling */
-        @media (max-width: 768px) {
-            .row {
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: start;
-            }
-        }
-    </style>
-
-    <div id="carousel" class="text-center py-4"
-        style="height: 140px; margin-top: 70px; margin-bottom: 40px; background-color: rgb(242, 241, 241);">
-        <p class="text-black mb-4 fs-6 fw-semibold">
-            Join a community of 500K+ candidates who’ve landed jobs at top companies
-        </p>
-        <div class="row justify-content-center g-4">
-            <div class="col-auto">
-                <img alt="Meta logo" class="img-fluid logo"
-                    src="https://www.tryexponent.com/images/companies/microsoft.png" />
-            </div>
-            <div class="col-auto">
-                <img alt="Google logo" class="img-fluid logo"
-                    src="https://www.tryexponent.com/images/companies/meta.png" />
-            </div>
-            <div class="col-auto">
-                <img alt="Microsoft logo" class="img-fluid logo"
-                    src="https://www.tryexponent.com/images/companies/google.png" />
-            </div>
-            <div class="col-auto">
-                <img alt="Amazon logo" class="img-fluid logo"
-                    src="https://www.tryexponent.com/images/companies/amazon.png" />
-            </div>
-            <div class="col-auto">
-                <img alt="Airbnb logo" class="img-fluid logo"
-                    src="https://www.tryexponent.com/images/companies/airbnb.png" />
-            </div>
-            <div class="col-auto">
-                <img alt="TikTok logo" class="img-fluid logo"
-                    src="https://www.tryexponent.com/images/companies/tiktok.png" />
-            </div>
-        </div>
-    </div>
-
-    <style>
-        .logo {
-            height: 30px;
-            /* Set consistent logo height */
-            transition: transform 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            #carousel {
-                width: 100%;
-                /* Remove fixed width to make it fully responsive */
-                padding-left: 15px;
-                /* Prevents logo overflow */
-                padding-right: 15px;
-                /* Prevents logo overflow */
-            }
-
-            .logo {
-                height: 20px;
-                /* Slightly smaller logos for mobile */
-            }
-        }
-    </style>
-
-
-
-<div class="searchable">
-    <h2 class="text-center mt-4 mb-3 fw-bold text-uppercase">Testimonials</h2>
-
-
-    <section class=" py-5 mt-4 mx-auto border border-rounded">
-
-        <div class="container mx-auto ">
-            <div class="row text-center text-black mx-0">
-                <div class="col-md-12">
-                    <!-- Carousel wrapper -->
-                    <div id="carouselBasicExample" class="carousel slide" data-bs-ride="carousel">
-                        <!-- Inner -->
-                        <div class="carousel-inner">
-                            <!-- Single item -->
-                            <div class="carousel-item active">
-                                <p class="lead font-italic mx-4 mx-md-5">
-                                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet
-                                    numquam iure provident voluptate esse quasi, voluptas nostrum quisquam!"
-                                </p>
-                                <div class="mt-4 mb-3">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(2).webp"
-                                        class="rounded-circle img-fluid shadow-1-strong" alt="Sample image" width="80"
-                                        height="80" />
-                                </div>
-                                <p class="text-light mb-0">- Anna Morian</p>
-                            </div>
-
-                            <!-- Single item -->
-                            <div class="carousel-item">
-                                <p class="lead font-italic mx-4 mx-md-5">
-                                    "Neque cupiditate assumenda in maiores repudiandae mollitia adipisci maiores
-                                    repudiandae mollitia consectetur adipisicing architecto elit sed adipiscing elit."
-                                </p>
-                                <div class="mt-4 mb-3">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp"
-                                        class="rounded-circle img-fluid shadow-1-strong" alt="Sample image" width="80"
-                                        height="80" />
-                                </div>
-                                <p class="text-light mb-0">- Teresa May</p>
-                            </div>
-
-                            <!-- Single item -->
-                            <div class="carousel-item">
-                                <p class="lead font-italic mx-4 mx-md-5">
-                                    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                    dolore eu fugiat nulla pariatur est laborum neque cupiditate assumenda in maiores."
-                                </p>
-                                <div class="mt-4 mb-3">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
-                                        class="rounded-circle img-fluid shadow-1-strong" alt="Sample image" width="80"
-                                        height="80" />
-                                </div>
-                                <p class="text-light mb-0">- Kate Allise</p>
-                            </div>
-                        </div>
-                        <!-- Inner -->
-
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselBasicExample"
-                            data-bs-slide="prev">
-                            <i class="fas fa-chevron-left text-black fs-2"></i>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselBasicExample"
-                            data-bs-slide="next">
-                            <i class="fas fa-chevron-right text-black fs-2"></i>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-
-                    </div>
-                    <!-- Carousel wrapper -->
+    <!-- Enhanced Navbar -->
+    {% include 'navbar.html' %}
+    <!-- Modern Hero Section -->
+    <section class="hero-section text-white">
+        <div class="container text-center">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold mb-4">Accelerate Your Career Growth</h1>
+                <p class="lead mb-5 opacity-90">Master in-demand skills, build professional resumes, and connect with industry experts.</p>
+                <div class="d-flex gap-3 justify-content-center">
+                    <a href="#signup" class="btn btn-light btn-lg px-5 rounded-pill">Start Learning</a>
+                    <a href="#features" class="btn btn-outline-light btn-lg px-5 rounded-pill">Explore Paths</a>
                 </div>
             </div>
         </div>
     </section>
-</div>
 
-    <footer class="text-black py-3 mt-4 bg-light">
-        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <!-- Left: About -->
-            <div>
-                <h5 class="fw-bold mb-1">CareerHub</h5>
-                <p class="small mb-0">Empowering careers with guidance and mentorship.</p>
-            </div>
+    <!-- Career Paths Section -->
+    <section class="py-5" id="features">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Data Engineering -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card p-4 text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Data Engineering</h5>
+                        <p class="text-secondary">Build scalable data pipelines and infrastructure for modern analytics.</p>
+                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                    </div>
+                </div>
 
-            <div class="text-center mt-2">
-                <p class="small mb-0">&copy; 2025 CareerHub. All Rights Reserved.</p>
-            </div>
+                <!-- Software Development -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card p-4 text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Software Development</h5>
+                        <p class="text-secondary">Master full-stack development and build production-ready applications.</p>
+                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                    </div>
+                </div>
 
-            <!-- Right: Social Media -->
-            <div>
-                <a href="#" class="text-black mx-2"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="text-black mx-2"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-black mx-2"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-black mx-2"><i class="fab fa-linkedin"></i></a>
+                <!-- Product Management -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card p-4 text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Product Management</h5>
+                        <p class="text-secondary">Lead product strategy from ideation to successful launch.</p>
+                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                    </div>
+                </div>
+
+                <!-- UX Design -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card p-4 text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">UX Design</h5>
+                        <p class="text-secondary">Create intuitive user experiences that drive engagement.</p>
+                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Copyright -->
+    <!-- Company Carousel -->
+    <section class="company-carousel">
+        <div class="container text-center">
+            <p class="text-muted mb-4">Trusted by professionals at leading tech companies</p>
+            <div class="d-flex justify-content-center flex-wrap gap-5">
+                <img src="https://www.tryexponent.com/images/companies/google.png" class="company-logo" alt="Google">
+                <img src="https://www.tryexponent.com/images/companies/microsoft.png" class="company-logo" alt="Microsoft">
+                <img src="https://www.tryexponent.com/images/companies/amazon.png" class="company-logo" alt="Amazon">
+                <img src="https://www.tryexponent.com/images/companies/airbnb.png" class="company-logo" alt="Airbnb">
+            </div>
+        </div>
+    </section>
 
-    </footer>
+    <!-- Testimonials -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Success Stories</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4">
+                        <div class="text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="testimonial-avatar rounded-circle">
+                        </div>
+                        <p class="text-muted mb-3">"CareerHub transformed my career journey. The structured learning paths helped me transition into product management seamlessly."</p>
+                        <h6 class="fw-bold mb-1">Sarah Johnson</h6>
+                        <p class="text-muted small">Senior Product Manager @ Microsoft</p>
+                    </div>
+                </div>
 
-    <!-- FontAwesome Icons -->
-    <script src="https://kit.fontawesome.com/YOUR_FONT_AWESOME_KIT.js" crossorigin="anonymous"></script>
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4">
+                        <div class="text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="testimonial-avatar rounded-circle">
+                        </div>
+                        <p class="text-muted mb-3">"The resume builder and interview prep resources helped me land my dream job at Google. Highly recommended!"</p>
+                        <h6 class="fw-bold mb-1">Michael Chen</h6>
+                        <p class="text-muted small">Software Engineer @ Google</p>
+                    </div>
+                </div>
 
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4">
+                        <div class="text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="testimonial-avatar rounded-circle">
+                        </div>
+                        <p class="text-muted mb-3">"The mentorship program connected me with industry experts who provided invaluable career guidance."</p>
+                        <h6 class="fw-bold mb-1">Emma Wilson</h6>
+                        <p class="text-muted small">Data Scientist @ Airbnb</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Ensure Bootstrap JS is included -->
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggler = document.getElementById("menuToggle");
-            const navbarCollapse = document.getElementById("navbarNav");
-            const icon = toggler.querySelector(".navbar-toggler-icon");
+        // Enhanced Mobile Menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
 
-            // Redirect non-logged-in users when clicking any link
-            {% if not is_logged_in %}
-            document.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    window.location.href = "{{ url_for('login') }}";
-                });
-            });
-            {% endif %}
-
-            // Toggle menu and change icon
-            toggler.addEventListener("click", function () {
-                setTimeout(() => {
-                    if (navbarCollapse.classList.contains("show")) {
-                        icon.style.backgroundImage = 'url("https://cdn-icons-png.flaticon.com/512/1828/1828778.png")'; // Close icon (✖)
-                    } else {
-                        icon.style.backgroundImage = 'url("https://cdn-icons-png.flaticon.com/512/2976/2976215.png")'; // Hamburger icon
-                    }
-                }, 150); // Slight delay to sync with Bootstrap animation
+            navbarToggler.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navbarCollapse.classList.toggle('show');
             });
 
             // Close menu when clicking outside
-            document.addEventListener("click", function (event) {
-                if (!toggler.contains(event.target) && !navbarCollapse.contains(event.target)) {
-                    navbarCollapse.classList.remove("show");
-                    icon.style.backgroundImage = 'url("https://cdn-icons-png.flaticon.com/512/2976/2976215.png")'; // Reset to Hamburger icon
+            document.addEventListener('click', function(e) {
+                if (!navbarToggler.contains(e.target) && !navbarCollapse.contains(e.target)) {
+                    navbarToggler.classList.remove('active');
+                    navbarCollapse.classList.remove('show');
                 }
             });
         });
-
-        document.addEventListener("DOMContentLoaded", function () {
-        const searchForm = document.getElementById('searchForm');
-        const searchInput = document.getElementById('searchInput');
-
-        // Event listener for the Enter key press in the search input
-        searchForm.addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent form submission
-            const query = searchInput.value.trim().toLowerCase(); // Get search query and remove extra spaces
-
-            if (!query) {
-                alert("Please enter a search term.");
-                return;
-            }
-
-            // Find all text/content sections to search within
-            const contentItems = document.querySelectorAll('.searchable'); // Add 'searchable' class to content you want to search
-            let found = false;
-
-            // Loop through content and search for the query
-            contentItems.forEach(item => {
-                const contentText = item.textContent.toLowerCase(); // Get plain text content (case-insensitive)
-
-                if (contentText.includes(query)) {
-                    item.style.display = ''; // Show matching item
-                    found = true;
-
-                    // Scroll to the matched item and highlight the text
-                    item.scrollIntoView({ behavior: "smooth", block: "center" }); // Scroll to the matching content
-                    highlightText(item, query); // Call the function to highlight the text
-                } else {
-                    item.style.display = 'none'; // Hide non-matching item
-                }
-            });
-
-            // Display "No Results Found" if no match
-            if (!found) {
-                alert("No Results Found");
-            }
-        });
-    });
-
-    // Function to highlight the matched text
-    function highlightText(element, query) {
-        const innerHTML = element.innerHTML;
-        const index = innerHTML.toLowerCase().indexOf(query);
-        if (index >= 0) {
-            // Highlight the matched text
-            element.innerHTML = innerHTML.substring(0, index) + 
-                                "<span class='highlight'>" + 
-                                innerHTML.substring(index, index + query.length) + 
-                                "</span>" + 
-                                innerHTML.substring(index + query.length);
-        }
-    }
     </script>
-
-
-
-
 </body>
-
 </html>

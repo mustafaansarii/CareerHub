@@ -1,5 +1,11 @@
+authlib
 Flask
-flask-session
-pymongo
+Flask-Admin
+Flask-Bcrypt
+Flask-Login
+Flask-Mail
+Flask-SQLAlchemy
+gunicorn
+python-dotenv
+requests
 werkzeug
-gunicorn==20.1.0
