@@ -60,19 +60,10 @@
         .hero-section {
             background: linear-gradient(135deg, rgba(37,99,235,0.96), rgba(79,70,229,0.95)),
                         url('hero-background.jpg') center/cover;
-            padding: 160px 0 80px;
+            padding: 160px 0 100px;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.2);
+            clip-path: ellipse(150% 100% at 50% 0%);
         }
 
         .hero-content {
@@ -119,6 +110,7 @@
             height: 40px;
             opacity: 0.7;
             transition: all 0.3s ease;
+            padding: 0 1.5rem;
         }
 
         .company-logo:hover {
@@ -131,7 +123,7 @@
             background: white;
             border-radius: 16px;
             border: none;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
         }
 
         .testimonial-avatar {
@@ -142,18 +134,64 @@
         }
 
         /* Responsive Adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .hero-section {
-                padding: 120px 0 60px;
+                padding: 140px 0 80px;
+                clip-path: ellipse(140% 100% at 50% 0%);
+            }
+            
+            .hero-content h1 {
+                font-size: 2.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem;
             }
             
             .nav-link {
+                width: 100%;
+                text-align: center;
                 margin: 4px 0;
             }
             
-            .navbar-collapse .btn {
+            .hero-section {
+                padding: 120px 0 60px;
+                clip-path: ellipse(160% 100% at 50% 0%);
+            }
+            
+            .hero-content h1 {
+                font-size: 2.25rem;
+            }
+            
+            .feature-card {
+                margin-bottom: 2rem;
+            }
+            
+            .company-logo {
+                height: 40px;
+                padding: 0 1rem;
+                margin: 0.5rem 0;
+            }
+            
+            .testimonial-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 100px 0 40px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .btn-lg {
                 width: 100%;
-                margin-top: 1rem;
+                margin: 0.5rem 0;
             }
         }
     </style>
@@ -162,15 +200,16 @@
 <body>
     <!-- Enhanced Navbar -->
     {% include 'navbar.html' %}
+    
     <!-- Modern Hero Section -->
     <section class="hero-section text-white">
         <div class="container text-center">
             <div class="hero-content">
-                <h1 class="display-4 fw-bold mb-4">Accelerate Your Career Growth</h1>
-                <p class="lead mb-5 opacity-90">Master in-demand skills, build professional resumes, and connect with industry experts.</p>
-                <div class="d-flex gap-3 justify-content-center">
-                    <a href="#signup" class="btn btn-light btn-lg px-5 rounded-pill">Start Learning</a>
-                    <a href="#features" class="btn btn-outline-light btn-lg px-5 rounded-pill">Explore Paths</a>
+                <h1 class="display-3 fw-bold mb-4">Accelerate Your Tech Career</h1>
+                <p class="lead mb-5 opacity-90 fs-5">Master in-demand skills through curated learning paths and expert mentorship</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                    <a href="{{ url_for('qsn') }}" class="btn btn-light btn-lg px-5 rounded-pill fw-medium py-3">Interview Questions</a>
+                    <a href="{{ url_for('roadmap', path='data-engineering') }}" class="btn btn-outline-light btn-lg px-5 rounded-pill fw-medium py-3">Explore Roadmap</a>
                 </div>
             </div>
         </div>
@@ -179,52 +218,56 @@
     <!-- Career Paths Section -->
     <section class="py-5" id="features">
         <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Career Paths</h2>
+                <p class="text-muted fs-5">Choose your specialization and start learning</p>
+            </div>
             <div class="row g-4">
                 <!-- Data Engineering -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="feature-card p-4 text-center h-100">
                         <div class="feature-icon">
                             <i class="fas fa-database"></i>
                         </div>
                         <h5 class="fw-bold mb-3">Data Engineering</h5>
                         <p class="text-secondary">Build scalable data pipelines and infrastructure for modern analytics.</p>
-                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                        <a href="{{ url_for('roadmap', path='data-engineering') }}" class="btn btn-link text-decoration-none">Explore Path →</a>
                     </div>
                 </div>
 
                 <!-- Software Development -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="feature-card p-4 text-center h-100">
                         <div class="feature-icon">
                             <i class="fas fa-code"></i>
                         </div>
                         <h5 class="fw-bold mb-3">Software Development</h5>
                         <p class="text-secondary">Master full-stack development and build production-ready applications.</p>
-                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                        <a href="{{ url_for('roadmap', path='software-development') }}" class="btn btn-link text-decoration-none">Explore Path →</a>
                     </div>
                 </div>
 
                 <!-- Product Management -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="feature-card p-4 text-center h-100">
                         <div class="feature-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <h5 class="fw-bold mb-3">Product Management</h5>
                         <p class="text-secondary">Lead product strategy from ideation to successful launch.</p>
-                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                        <a href="{{ url_for('roadmap', path='product-management') }}" class="btn btn-link text-decoration-none">Explore Path →</a>
                     </div>
                 </div>
 
                 <!-- UX Design -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="feature-card p-4 text-center h-100">
                         <div class="feature-icon">
                             <i class="fas fa-palette"></i>
                         </div>
                         <h5 class="fw-bold mb-3">UX Design</h5>
                         <p class="text-secondary">Create intuitive user experiences that drive engagement.</p>
-                        <a href="#" class="btn btn-link text-decoration-none">Explore Path →</a>
+                        <a href="{{ url_for('roadmap', path='ux-design') }}" class="btn btn-link text-decoration-none">Explore Path →</a>
                     </div>
                 </div>
             </div>
@@ -250,7 +293,7 @@
             <h2 class="text-center mb-5 fw-bold">Success Stories</h2>
             
             <div class="row g-4">
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <div class="testimonial-card p-4">
                         <div class="text-center mb-4">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" class="testimonial-avatar rounded-circle">
@@ -261,7 +304,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <div class="testimonial-card p-4">
                         <div class="text-center mb-4">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" class="testimonial-avatar rounded-circle">
@@ -272,7 +315,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <div class="testimonial-card p-4">
                         <div class="text-center mb-4">
                             <img src="https://randomuser.me/api/portraits/women/68.jpg" class="testimonial-avatar rounded-circle">

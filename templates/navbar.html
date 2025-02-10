@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerHub - Professional Development Platform</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.jpg') }}" type="image/x-icon">
     
     <!-- CSS Libraries -->
@@ -57,6 +56,12 @@
         }
 
         /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .search-form {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {            
             .nav-link {
                 margin: 4px 0;
@@ -66,6 +71,14 @@
                 width: 100%;
                 margin-top: 1rem;
             }
+        }
+
+        .open-on-hover .dropdown-menu {
+            display: none;
+        }
+
+        .open-on-hover:hover .dropdown-menu {
+            display: block;
         }
     </style>
 </head>
@@ -87,25 +100,28 @@
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('roadmap') }}">Roadmaps</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('resume') }}">Resume</a></li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown open-on-hover">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             Resources
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul id="resourcesDropdown" class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ url_for('qsn') }}">DSA Questions</a></li>
                             <li><a class="dropdown-item" href="/">Career Guides</a></li>
                             <li><a class="dropdown-item" href="/">Interview Prep</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/">Mentorship</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item d-lg-none"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                    {% endif %}
                 </ul>
 
                 <div class="d-flex align-items-center gap-3">
-                    <form class="position-relative">
+                    <form class="position-relative search-form">
                         <input type="search" class="form-control" placeholder="Search resources...">
                     </form>
                     {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('logout') }}" class="btn btn-outline-primary">Logout</a>
+                        <a href="{{ url_for('logout') }}" class="btn btn-outline-primary d-lg-inline-block d-none">Logout</a>
                     {% else %}
                         <a href="{{ url_for('login') }}" class="btn btn-primary">Get Started</a>
                     {% endif %}
@@ -113,3 +129,34 @@
             </div>
         </div>
     </nav>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var parentDropdown = document.querySelector('.open-on-hover');
+        var dropdown = document.getElementById('resourcesDropdown');
+        var timeout;
+
+        parentDropdown.addEventListener("mouseenter", function() {
+            clearTimeout(timeout);
+            dropdown.classList.add('show');
+        });
+
+        parentDropdown.addEventListener("mouseleave", function() {
+            timeout = setTimeout(function() {
+                dropdown.classList.remove('show');
+            }, 2000);
+        });
+
+        dropdown.addEventListener("mouseenter", function() {
+            clearTimeout(timeout);
+        });
+
+        dropdown.addEventListener("mouseleave", function() {
+            timeout = setTimeout(function() {
+                dropdown.classList.remove('show');
+            }, 500);
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,217 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerHub</title>
+    <title>CareerHub - Resume Templates</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.jpg') }}" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #4f46e5;
+            --card-hover-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            --card-border-radius: 1rem;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            padding-top: 80px;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 4rem 0;
+        }
+
+        .card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: var(--card-border-radius);
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .card-img-top {
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-top img {
+            transition: transform 0.3s ease;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card:hover .card-img-top img {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            font-weight: 600;
+            padding: 0.5em 1em;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .card-img-top {
+                height: 200px;
+            }
+            
+            .hero-section {
+                padding: 2rem 0;
+            }
         }
     </style>
 </head>
 
-<style>
-    /* Navbar hover effect */
-    .nav-link {
-        color: #333 !important;
-        font-weight: 600;
-    }
-
-    .nav-link:hover {
-        color: black !important;
-        transition: 0.3s ease-in-out;
-    }
-
-    /* Dropdown hover effect only for larger screens */
-    @media (min-width: 992px) {
-        .dropdown:hover .dropdown-menu {
-            display: block;
-            margin-top: 0;
-        }
-    }
-
-    /* Smooth dropdown transitions */
-    .dropdown-menu {
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* Search input */
-    .form-control {
-        width: 250px;
-        border-radius: 20px;
-    }
-
-    /* Buttons rounded for smooth UI */
-    .btn {
-        font-weight: 600;
-        border-radius: 20px;
-    }
-
-    /* Navbar shadow effect */
-    .navbar {
-        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Custom Toggler Icon */
-    .navbar-toggler {
-        border: none;
-        outline: none;
-    }
-
-    /* Default icon */
-    .navbar-toggler-icon {
-        width: 30px;
-        height: 30px;
-        background: url("https://cdn-icons-png.flaticon.com/512/2976/2976215.png") no-repeat center;
-        background-size: contain;
-    }
-
-    /* Change icon when navbar is open */
-    .navbar-toggler.open .navbar-toggler-icon {
-        background: url("https://cdn-icons-png.flaticon.com/512/1828/1828778.png") no-repeat center;
-        /* Close icon */
-        background-size: contain;
-    }
-
-    /* Hide search box on mobile */
-    @media (max-width: 767px) {
-        .search-container {
-            display: none;
-        }
-    }
-
-    /* Fixed navbar at the top */
-    .navbar.fixed-top {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        width: 100%;
-    }
-
-    /* Body padding to prevent content hiding under navbar */
-    body {
-        padding-top: 80px;
-        /* Adjust for navbar height */
-    }
-
-    /* Blur effect when menu is open */
-    .navbar.blur-background {
-        backdrop-filter: blur(5px);
-    }
-
-    @media (max-width: 767px) {
-        .navbar-collapse .search-container input {
-            display: none !important;
-            /* Hide only the search box */
-        }
-    }
-
-    @media (max-width: 767px) {
-        .navbar-collapse .search-container {
-            display: none;
-            /* Keep search box hidden on mobile */
-        }
-
-        .navbar-collapse .btn {
-            display: block;
-            width: auto;
-            /* Remove full-width */
-            text-align: left;
-            /* Align text to the left */
-            padding: 0;
-            /* Remove extra padding */
-            margin-top: 10px;
-            /* Add margin for spacing */
-            background: none;
-            /* Remove background */
-            border: none;
-            /* Remove border */
-            color: #007bff;
-            /* Match color with other nav links */
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        /* Adjust text color and appearance for both login and logout */
-        .navbar-collapse .btn-primary,
-        .navbar-collapse .btn-outline-primary {
-            text-align: left;
-            /* Align text left like other nav items */
-        }
-    }
-
-    .highlight {
-        background-color: yellow;
-        color: black;
-        font-weight: bold;
-    }
-</style>
 <body>
-    <!-- Enhanced Navbar -->
     {% include 'navbar.html' %}
 
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">
-            LaTeX templates — CVs and résumés
-        </h1>
-        <p class="text-lg text-gray-600 mb-8">
-            Make a great first impression with our popular LaTeX templates for CVs and résumés.
-        </p>
-        <div class="bg-gray-100 p-6 rounded-lg">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-                Selected by Overleaf staff
-            </h2>
-            <div class="row">
-                {% for resume in resumes %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-img-top" style="height: 500px; overflow: hidden;">
-                            <a href="{{ resume.hreflink}}">
-                                <img src="{{ resume.imglink }}" 
-                                     alt="Preview of {{ resume.title }}" 
-                                     class="img-fluid w-100 h-100"
-                                     style="object-fit: cover;">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ resume.title }}</h5>
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold text-center mb-3">Professional Resume Templates</h1>
+            <p class="lead text-center text-muted mb-4 mx-auto" style="max-width: 600px;">
+                Craft your perfect resume with our curated collection of modern and professional templates
+            </p>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row g-4">
+            {% for resume in resumes %}
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-img-top">
+                        <a href="{{ resume.hreflink }}" target="_blank">
+                            <img src="{{ resume.imglink }}" alt="{{ resume.title }}">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">{{ resume.title }}</h5>
                             {% if resume.pick %}
                             <span class="badge bg-success">{{ resume.pick }}</span>
                             {% endif %}
-                            <p class="card-text">{{ resume.description }}</p>
-                            <p class="card-text"><small class="text-muted">{{ resume.authorname }}</small></p>
                         </div>
+                        <p class="card-text text-muted small mb-3">{{ resume.description }}</p>
+                        <p class="card-text"><small class="text-muted">By {{ resume.authorname }}</small></p>
                     </div>
                 </div>
-                {% endfor %}
             </div>
-            
-            <!-- Pagination -->
-            <nav aria-label="Page navigation" class="mt-5">
-                <ul class="pagination justify-content-center" id="pagination">
-                    <!-- Pages will be dynamically inserted here -->
-                </ul>
-            </nav>
+            {% endfor %}
         </div>
-    </div>
-</body>
 
-    <!-- Footer -->
+        <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination justify-content-center" id="pagination"></ul>
+        </nav>
+    </div>
+
     {% include 'footer.html' %}
 
     <script>
@@ -236,21 +148,20 @@
             
             const cardContainer = document.querySelector('.row');
             cardContainer.innerHTML = pageItems.map(resume => `
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4">
                     <div class="card h-100">
-                        <div class="card-img-top" style="height: 500px; overflow: hidden;">
-                            <a href="${resume.hreflink}">
-                                <img src="${resume.imglink}" 
-                                     alt="Preview of ${resume.title}" 
-                                     class="img-fluid w-100 h-100"
-                                     style="object-fit: cover;">
+                        <div class="card-img-top">
+                            <a href="${resume.hreflink}" target="_blank">
+                                <img src="${resume.imglink}" alt="${resume.title}">
                             </a>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">${resume.title}</h5>
-                            ${resume.pick ? `<span class="badge bg-success">${resume.pick}</span>` : ''}
-                            <p class="card-text">${resume.description}</p>
-                            <p class="card-text"><small class="text-muted">${resume.authorname}</small></p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">${resume.title}</h5>
+                                ${resume.pick ? `<span class="badge bg-success">${resume.pick}</span>` : ''}
+                            </div>
+                            <p class="card-text text-muted small mb-3">${resume.description}</p>
+                            <p class="card-text"><small class="text-muted">By ${resume.authorname}</small></p>
                         </div>
                     </div>
                 </div>

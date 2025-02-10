@@ -208,16 +208,19 @@ admin.add_view(SecureModelView(DSAQuestion, db.session))
 
 # Routes for database models
 @app.route("/qsn")
+@login_required
 def qsn():
     questions = DSAQuestion.query.all()
     return render_template("qsn.html", questions=questions)
 
 @app.route("/resume")
+@login_required
 def resume():
     resumes = Resume.query.all()
     return render_template("resume.html", resumes=resumes)
 
 @app.route("/roadmap")
+@login_required
 def roadmap():
     roadmaps = Roadmap.query.all()
     return render_template("roadmap.html", roadmaps=roadmaps)

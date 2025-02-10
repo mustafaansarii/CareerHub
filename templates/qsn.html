@@ -6,113 +6,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Questions</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.jpg') }}" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding-top: 70px;
-            background-color: #121212;
-            color: #ffffff;
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #4f46e5;
+            --accent-color: #f59e0b;
         }
 
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1030;
+        body {
+            font-family: 'Inter', sans-serif;
+            padding-top: 80px;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        .table-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
         .table-responsive {
-            width: 100%;
             overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
         }
 
         table {
-            max-width: 90%;
-            margin: 0 auto;
-            background-color: #1e1e1e;
-            color: #ffffff;
+            width: 100%;
+            background-color: #f8fafc;
+            color: #1e293b;
+            border-collapse: separate;
+            border-spacing: 0;
         }
 
         th, td {
-            border-color: #444444;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .modal-content {
-            background-color: #1e1e1e;
-            color: white;
-        }
-
-        .form-control {
-            background-color: #333333;
-            color: white;
-            border: 1px solid #555555;
-        }
-
-        .form-control::placeholder {
-            color: #bbbbbb;
-        }
-
-        .btn-primary, .btn-success, .btn-danger {
-            color: white;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #FF6F61;
-        }
-
-        .navbar-brand:hover {
-            color: #a2c3ff;
-        }
-
-        .nav-link {
-            color: white !important;
+        th {
+            background-color: #e2e8f0;
             font-weight: 600;
+            color: var(--accent-color);
         }
 
-        .nav-link:hover {
-            color: #61d5ff;
+        tr:hover {
+            background-color: #e2e8f0;
         }
 
-        .btn-outline-primary {
-            color: white;
-            border-color: white;
-            margin-left: 10px;
+        .topic-cell {
+            color: var(--primary-color);
+            font-weight: 500;
         }
 
-        .btn-outline-primary:hover {
-            color: #FF6F61;
-            border-color: #FF6F61;
+        .title-cell {
+            color: #1e293b;
+            font-weight: 500;
         }
-        
+
+        .link-cell a {
+            color: var(--accent-color) !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .link-cell a:hover {
+            color: #ffc107 !important;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+
+            .table-container {
+                padding: 0 0.5rem;
+            }
+
+            table {
+                display: block;
+            }
+
+            th, td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .link-cell a {
+                word-break: break-all;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .table-responsive {
+                border-radius: 8px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Enhanced Navbar -->
     {% include 'navbar.html' %}
 
-    <div class="container">
+    <div class="table-container">
         <div class="table-responsive">
-            <table class="table table-dark table-bordered table-hover align-middle">
-                <thead class="thead-light text-warning">
+            <table class="table table-hover align-middle">
+                <thead>
                     <tr>
-                        <th scope="col">Sr. No</th>
+                        <th scope="col">#</th>
                         <th scope="col">Topic</th>
                         <th scope="col">Title</th>
                         <th scope="col">Practice Link</th>
@@ -122,10 +135,10 @@
                     {% for question in questions %}
                     <tr id="row-{{ question.id }}" class="topic-border-{{ question.topic|replace(' ', '') }}">
                         <td class="text-center text-secondary">{{ loop.index }}</td>
-                        <td class="topic-{{ question.id }} fw-bold">{{ question.topic }}</td>
-                        <td class="title-{{ question.id }} fw-bold text-info">{{ question.title }}</td>
-                        <td class="link-{{ question.id }}">
-                            <a href="{{ question.qsnlink }}" class="text-warning fs-6" target="_blank">
+                        <td class="topic-cell">{{ question.topic }}</td>
+                        <td class="title-cell">{{ question.title }}</td>
+                        <td class="link-cell">
+                            <a href="{{ question.qsnlink }}" target="_blank" rel="noopener noreferrer">
                                 {{ question.qsnlink }}
                             </a>
                         </td>
@@ -135,21 +148,15 @@
             </table>
         </div>
     </div>
-    
 
-    <!-- Footer -->
     {% include 'footer.html' %}
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // JavaScript functions remain the same as they are functional
         function updateDone(id) {
-            // Get the checkbox state (checked or not)
             var checkbox = document.getElementById('done-checkbox-' + id);
             var doneStatus = checkbox.checked;
-
-            // Send an AJAX POST request to update the "done" status in the database
             var formData = new FormData();
             formData.append('done', doneStatus ? 'on' : 'off');
 
@@ -157,26 +164,21 @@
                 method: 'POST',
                 body: formData
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message);
-                })
-                .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => console.log(data.message))
+            .catch(error => console.error('Error:', error));
         }
 
         function editRow(id) {
             var editBtn = document.getElementById('edit-btn-' + id);
             var doneBtn = document.getElementById('done-btn-' + id);
-
-            // Hide Edit button, Show Done button
             editBtn.style.display = 'none';
             doneBtn.style.display = 'inline';
 
-            // Enable input fields for editing
             var row = document.getElementById('row-' + id);
-            var topicCell = row.querySelector('.topic-' + id);
-            var titleCell = row.querySelector('.title-' + id);
-            var linkCell = row.querySelector('.link-' + id);
+            var topicCell = row.querySelector('.topic-cell');
+            var titleCell = row.querySelector('.title-cell');
+            var linkCell = row.querySelector('.link-cell');
 
             topicCell.innerHTML = '<input type="text" class="form-control" value="' + topicCell.textContent + '" id="edit-topic-' + id + '">';
             titleCell.innerHTML = '<input type="text" class="form-control" value="' + titleCell.textContent + '" id="edit-title-' + id + '">';
@@ -184,46 +186,30 @@
         }
 
         function doneEdit(id) {
-            var editBtn = document.getElementById('edit-btn-' + id);
-            var doneBtn = document.getElementById('done-btn-' + id);
-
-            // Show Edit button, Hide Done button
+            var editBtn = document.getElementById('edit-btn-' + id');
+            var doneBtn = document.getElementById('done-btn-' + id');
             editBtn.style.display = 'inline';
             doneBtn.style.display = 'none';
 
-            // Get the updated values
-            var topic = document.getElementById('edit-topic-' + id).value;
-            var title = document.getElementById('edit-title-' + id).value;
-            var link = document.getElementById('edit-link-' + id).value;
+            var topic = document.getElementById('edit-topic-' + id').value;
+            var title = document.getElementById('edit-title-' + id').value;
+            var link = document.getElementById('edit-link-' + id').value;
 
-            // Create a form to send the updated data
             var form = document.createElement('form');
             form.method = 'POST';
             form.action = '/edit_question/' + id;
 
-            var topicField = document.createElement('input');
-            topicField.type = 'hidden';
-            topicField.name = 'topic';
-            topicField.value = topic;
-            form.appendChild(topicField);
-
-            var titleField = document.createElement('input');
-            titleField.type = 'hidden';
-            titleField.name = 'title';
-            titleField.value = title;
-            form.appendChild(titleField);
-
-            var linkField = document.createElement('input');
-            linkField.type = 'hidden';
-            linkField.name = 'practice_link';
-            linkField.value = link;
-            form.appendChild(linkField);
+            [['topic', topic], ['title', title], ['practice_link', link]].forEach(([name, value]) => {
+                var field = document.createElement('input');
+                field.type = 'hidden';
+                field.name = name;
+                field.value = value;
+                form.appendChild(field);
+            });
 
             document.body.appendChild(form);
             form.submit();
         }
     </script>
-
 </body>
-
 </html>
