@@ -144,6 +144,11 @@ def register():
 
         hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
 
+        # Check if the email already exists
+        if User.query.filter_by(email=email).first():
+            flash("Email already exists", "danger")
+            return redirect(url_for("register"))
+
         try:
             new_user = User(
                 name=name,
