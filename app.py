@@ -105,6 +105,10 @@ def send_otp():
     if not email:
         return jsonify({"error": "Email is required"}), 400
 
+    # Check if email already exists
+    if User.query.filter_by(email=email).first():
+        return jsonify({"error": "Email already registered"}), 400
+
     otp = generate_otp()
     session.update({
         "registration_otp": otp,
